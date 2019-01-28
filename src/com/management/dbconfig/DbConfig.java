@@ -20,7 +20,7 @@ public class DbConfig {
 		try {
 			jdbc_driver=new com.mysql.cj.jdbc.Driver();
 			DriverManager.registerDriver(jdbc_driver);
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/hrm", "root", "root");
+			con = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306/dZvxMPz6gh", "dZvxMPz6gh", "U4XayIEOas");
 			smt = con.createStatement();
 //			.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			psmt = null;
