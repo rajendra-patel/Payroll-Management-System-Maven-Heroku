@@ -38,16 +38,17 @@ public class SalaryReportController {
 	}
 
 	@GET
-	@Path("/{sal-id}")
+	@Path("/{emp-id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response findSalary(@PathParam("sal-id") int sal_id, @Context UriInfo uriinfo) throws AppException {
+	public Response findSalary(@PathParam("emp-id") int emp_id, @Context UriInfo uriinfo) throws AppException {
 
-		System.out.println("Reached withing GET Salary of Employee :" + sal_id);
-			c_ns= srs.findSalary(sal_id);
+		System.out.println("Reached withing GET Salary of Employee :" + emp_id);
+			c_ns= srs.findSalary(emp_id);
 		return Response.ok(c_ns).location(uriinfo.getAbsolutePath()).build();
 	}
 
 	@POST
+	@Path("/{emp-id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response enterSalary(@PathParam("emp-id") int emp_id, NetSalary ns, @Context UriInfo uriinfo) throws AppException {
@@ -59,6 +60,7 @@ public class SalaryReportController {
 	}
 
 	@PUT
+	@Path("/{emp-id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response alterSalary(@PathParam("emp-id") int emp_id, NetSalary ns, @Context UriInfo uriinfo) throws AppException {
@@ -69,6 +71,7 @@ public class SalaryReportController {
 	}
 
 	@DELETE
+	@Path("/{emp-id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response removeSalary(@PathParam("emp-id") int emp_id, @Context UriInfo uriinfo) throws AppException {
 
