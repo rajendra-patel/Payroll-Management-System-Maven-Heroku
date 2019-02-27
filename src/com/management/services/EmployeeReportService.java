@@ -13,6 +13,7 @@ public class EmployeeReportService {
 		HashMap<Integer, Manager> map_emp;
 		map_emp = erd.getEmployeesDao();
 		if(map_emp == null) {
+			System.out.println("Null Map of Employees returned");
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"There are no employees yet in the database");
 		}
@@ -23,6 +24,7 @@ public class EmployeeReportService {
 		Manager employee;
 		employee = erd.getEmployeeDao(id);
 		if(employee == null) {
+			System.out.println("Null Employee returned");
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"The employee you requested with id " + id + " was not found in the database");
 		}
@@ -32,6 +34,7 @@ public class EmployeeReportService {
 		Manager employee;
 		employee = erd.postEmployeeDao(emp);
 		if(employee == null) {
+			System.out.println("Null Employee returned");
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"The requested post did not contain correct parameters");
 		}
@@ -42,6 +45,7 @@ public class EmployeeReportService {
 		Manager employee;
 		employee = erd.putEmployeeDao(id, emp);
 		if(employee == null) {
+			System.out.println("Null Employee returned");
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"The employee with id " + id + " which was requested to be altered was not found in the database");
 		}
@@ -51,6 +55,7 @@ public class EmployeeReportService {
 	public int deleteEmployeeService(int id) throws AppException {
 		int ra=erd.deleteEmployeeDao(id);
 		if(ra==0) {
+			System.out.println("Rows affected 0");
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"The employee with id " + id + " for which Deletion was requested not found in the database");
 		}

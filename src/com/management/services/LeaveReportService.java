@@ -14,9 +14,9 @@ public class LeaveReportService {
 
 	
 	public  HashMap<Integer,Leave> getLeavesService(int emp_id) throws AppException {
-		System.out.println("inside leave Serv");
 		HashMap<Integer,Leave> Leaves= lrd.getLeavesDao(emp_id);
 		if (Leaves==null) {
+			System.out.println("Null Leaves returned");			
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"The Leaves of employee you requested for employee with id " + emp_id + " was not found in the Leaves database");	
 		}
@@ -27,6 +27,7 @@ public class LeaveReportService {
 	public Leave getLeaveService(int emp_id, int leave_id) throws AppException {
 		Leave leave=lrd.getLeaveDao(emp_id,leave_id);;
 		if (leave==null) {
+			System.out.println("Null Leave returned");
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"The Leaves of employee you requested for employee with id " + emp_id + " was not found in the Leaves database");	
 		}
@@ -37,6 +38,7 @@ public class LeaveReportService {
 	public Leave postLeaveService(int emp_id, Leave l) throws AppException {
 		Leave leave=lrd.postLeaveDao(emp_id,l);
 		if (leave==null) {
+			System.out.println("Null Leave returned");
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"The Employee with id " + emp_id + " for which the Leave is being entered was not found in the Employee database");	
 		}
@@ -47,6 +49,7 @@ public class LeaveReportService {
 	public Leave putLeaveService(int emp_id, int leave_id, Leave l) throws AppException {
 		Leave leave=lrd.putLeaveDao(emp_id, leave_id, l);
 		if (leave==null) {
+			System.out.println("Null Leave returned");
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"The Employee with id " + emp_id + " of which the Leave was requested to be altered was not found in the Employee database");	
 		}
@@ -58,6 +61,7 @@ public class LeaveReportService {
 		boolean ra=lrd.deleteLeaveDao(emp_id,leave_id);
 
 		if (!ra) {
+			System.out.println("Rows affected false");
 			throw new AppException(Response.Status.NOT_FOUND.getStatusCode(),
 					"The Leave of employee with id " + emp_id + " for which Deletion was requested was not found in the database");	
 		}

@@ -5,11 +5,11 @@ import java.util.HashMap;
 import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Manager extends Employee{
-	
+	private HashMap<Integer, Employee> reportingEmployees = new HashMap<>();
 	public Manager() {
 		super();
 	}
-	private HashMap<Integer, Employee> reportingEmployees = new HashMap<>();
+
 	public HashMap<Integer, Employee> getReportingEmployees() {
 		return reportingEmployees;
 	}
@@ -21,7 +21,6 @@ public class Manager extends Employee{
 //        	reportingEmployee.getManager().getReportingEmployees().remove(reportingEmployee.getEmp_id());
         }
         reportingEmployee.setManager(this.getEmp_id());
-
         reportingEmployees.put(reportingEmployee.getEmp_id(),reportingEmployee);
     }
     public void removeReportingEmployee(Employee reportingEmployee) {

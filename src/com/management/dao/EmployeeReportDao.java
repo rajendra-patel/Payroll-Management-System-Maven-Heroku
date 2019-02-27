@@ -16,7 +16,6 @@ public class EmployeeReportDao {
 
 	// Return All Employees
 	public HashMap<Integer, Manager> getEmployeesDao() {
-		System.out.println("inside All Emp Dao ");
 		HashMap<Integer, Manager> map_employee = null;
 		String querry;
 		ResultSet rs = null;
@@ -53,22 +52,6 @@ public class EmployeeReportDao {
 					Employee repEmp = new Employee();
 
 					repEmp.setEmp_id(repEmpRs.getInt(1));
-/*					
-					repEmp.setManager(repEmpRs.getInt(2));;
-					repEmp.setDept_id(repEmpRs.getString(3));
-					repEmp.setFirst_name(repEmpRs.getString(4));
-					repEmp.setLast_name(repEmpRs.getString(5));
-					repEmp.setDob(repEmpRs.getDate(6).toLocalDate());
-					repEmp.setGender(repEmpRs.getString(7));
-					repEmp.setCountry(repEmpRs.getString(8));
-					repEmp.setState(repEmpRs.getString(9));
-					repEmp.setCity(repEmpRs.getString(10));
-					repEmp.setAddress(repEmpRs.getString(11));
-					repEmp.setPincode(repEmpRs.getString(12));
-					repEmp.setEmail(repEmpRs.getString(13));
-					repEmp.setMobile_no(repEmpRs.getString(14));
-					repEmp.setDoj(repEmpRs.getDate(15).toLocalDate());
-*/					
 					employee.setReportingEmployee(repEmp);
 				}
 				repEmpRs.close();
@@ -85,17 +68,17 @@ public class EmployeeReportDao {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("Exiting GET Employee Dao safely");
 		return map_employee;
 	}
 
 	// Search for a particular employee
 	public Manager getEmployeeDao(int id) {
-		if(id == 0)
-		{
+		if (id == 0) {
+			System.out.println("Exiting GET Employee Dao with Employee id null/" + id);
 			return null;
 		}
 
-		System.out.println("in dao" + id);
 		StringBuilder querry = new StringBuilder("select * from employees where Employee_Id=");
 		querry.append(id);
 		Manager manager = null;
@@ -127,70 +110,54 @@ public class EmployeeReportDao {
 				manager.setMobile_no(mng_rs.getString(14));
 				manager.setDoj(mng_rs.getDate(15).toLocalDate());
 
-			querry = new StringBuilder("select * from employees where Manager=").append(id);
-			repo.SetQuerry("select * from employees where Manager=?");
-			repo.getPsmt().setInt(1, manager.getEmp_id());
-			ResultSet repEmpRs = repo.executePreparedStatement();
+				querry = new StringBuilder("select * from employees where Manager=").append(id);
+				repo.SetQuerry("select * from employees where Manager=?");
+				repo.getPsmt().setInt(1, manager.getEmp_id());
+				ResultSet repEmpRs = repo.executePreparedStatement();
 
-//			rs = repo.executeQuerryRep(querry.toString());
-			while (repEmpRs.next()) {
-				repEmp = new Employee();
-				
-				repEmp.setEmp_id(repEmpRs.getInt(1));
-				repEmp.setManager(repEmpRs.getInt(2));;
-				repEmp.setDept_id(repEmpRs.getString(3));
-				repEmp.setFirst_name(repEmpRs.getString(4));
-				repEmp.setLast_name(repEmpRs.getString(5));
-				repEmp.setDob(repEmpRs.getDate(6).toLocalDate());
-				repEmp.setGender(repEmpRs.getString(7));
-				repEmp.setCountry(repEmpRs.getString(8));
-				repEmp.setState(repEmpRs.getString(9));
-				repEmp.setCity(repEmpRs.getString(10));
-				repEmp.setAddress(repEmpRs.getString(11));
-				repEmp.setPincode(repEmpRs.getString(12));
-				repEmp.setEmail(repEmpRs.getString(13));
-				repEmp.setMobile_no(repEmpRs.getString(14));
-				repEmp.setDoj(repEmpRs.getDate(15).toLocalDate());
+				while (repEmpRs.next()) {
+					repEmp = new Employee();
 
-/*				
-				repEmp.setEmp_id(rs.getInt(1));
-				repEmp.setManager(rs.getInt(2));
-				repEmp.setDept_id(rs.getString(3));
-				repEmp.setFirst_name(rs.getString(4));
-				repEmp.setLast_name(rs.getString(5));
-				repEmp.setDob(rs.getDate(6).toLocalDate());
-				repEmp.setGender(rs.getString(7));
-				repEmp.setCountry(rs.getString(8));
-				repEmp.setState(rs.getString(9));
-				repEmp.setCity(rs.getString(10));
-				repEmp.setAddress(rs.getString(11));
-				repEmp.setPincode(rs.getString(12));
-				repEmp.setEmail(rs.getString(13));
-				repEmp.setMobile_no(rs.getString(14));
-				repEmp.setDoj(rs.getDate(15).toLocalDate());
-*/
-				manager.setReportingEmployee(repEmp);
-			}
+					repEmp.setEmp_id(repEmpRs.getInt(1));
+					repEmp.setManager(repEmpRs.getInt(2));
+					;
+					repEmp.setDept_id(repEmpRs.getString(3));
+					repEmp.setFirst_name(repEmpRs.getString(4));
+					repEmp.setLast_name(repEmpRs.getString(5));
+					repEmp.setDob(repEmpRs.getDate(6).toLocalDate());
+					repEmp.setGender(repEmpRs.getString(7));
+					repEmp.setCountry(repEmpRs.getString(8));
+					repEmp.setState(repEmpRs.getString(9));
+					repEmp.setCity(repEmpRs.getString(10));
+					repEmp.setAddress(repEmpRs.getString(11));
+					repEmp.setPincode(repEmpRs.getString(12));
+					repEmp.setEmail(repEmpRs.getString(13));
+					repEmp.setMobile_no(repEmpRs.getString(14));
+					repEmp.setDoj(repEmpRs.getDate(15).toLocalDate());
+
+					manager.setReportingEmployee(repEmp);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null) {
-				rs.close();
-				mng_rs.close();
+				if (rs != null) {
+					rs.close();
+					mng_rs.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("Exiting GET Employee Dao safely with id" + id);
 		return manager;
 	}
 
 	// Enter a New employee ( new recruit)
 	public Manager postEmployeeDao(Manager employee) {
-		if(employee==null)
-		{
+		if (employee == null) {
+			System.out.println("Exiting POST Employee Dao with no Body");
 			return null;
 		}
 
@@ -244,13 +211,14 @@ public class EmployeeReportDao {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("Exiting POST Employee Dao safely with id :" + employeeRet.getEmp_id());
 		return employeeRet;
 	}
 
 	// Altering Employee Details
 	public Manager putEmployeeDao(int id, Manager employee_par) {
-		if(id == 0 || employee_par==null)
-		{
+		if (id == 0 || employee_par == null) {
+			System.out.println("Exiting PUT Employee Dao with no id/Body");
 			return null;
 		}
 		StringBuilder querry = new StringBuilder("update employees set");
@@ -304,66 +272,67 @@ public class EmployeeReportDao {
 		} else {
 			querry.append(" DOJ='").append(java.sql.Date.valueOf(employee_par.getDoj())).append("'");
 		}
-		if(querry.length()==19) {
-			ra=1;
-		}
-		else {
+		if (querry.length() != 19) {
 			querry.append(" where Employee_Id=").append(id);
-			ra = repo.executeUpdateRep(querry.toString());
-		}
-		querry = new StringBuilder("select * from employees where Employee_Id=").append(id);
-		System.out.println(querry);
-		try {
-			rs = repo.executeQuerryRep(querry.toString());
-			while (rs.next()) {
-				employeeRet.setEmp_id(rs.getInt(1));
-				employeeRet.setManager(rs.getInt(2));
-				employeeRet.setDept_id(rs.getString(3));
-				employeeRet.setFirst_name(rs.getString(4));
-				employeeRet.setLast_name(rs.getString(5));
-				employeeRet.setDob(rs.getDate(6).toLocalDate());
-				employeeRet.setGender(rs.getString(7));
-				employeeRet.setCountry(rs.getString(8));
-				employeeRet.setState(rs.getString(9));
-				employeeRet.setCity(rs.getString(10));
-				employeeRet.setAddress(rs.getString(11));
-				employeeRet.setPincode(rs.getString(12));
-				employeeRet.setEmail(rs.getString(13));
-				employeeRet.setMobile_no(rs.getString(14));
-				employeeRet.setDoj(rs.getDate(15).toLocalDate());
-			}
-			for (Employee a : employee_par.getReportingEmployees().values()) {
-				querry = new StringBuilder("update employees set Manager =").append(id)
-						.append(" where Employee_Id=").append(a.getEmp_id());
-				repo.executeUpdateRep(querry.toString());
-			}
-			repo.SetQuerry("select * from employees where Manager=?");
-			repo.getPsmt().setInt(1, id);
-			ResultSet repEmpRs = repo.executePreparedStatement();
-			while (repEmpRs.next()) {
-				Employee repEmp = new Employee();
-				repEmp.setEmp_id(repEmpRs.getInt(1));
-				employeeRet.setReportingEmployee(repEmp);
-			}
-			repEmpRs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
+			System.out.println("Received Querry :" + querry);
 			try {
-				rs.close();
+				ra = repo.executeUpdateRep(querry.toString());
+				querry.delete(0,querry.length());
+				querry.append("select * from employees where Employee_Id=").append(id);
+				rs = repo.executeQuerryRep(querry.toString());
+				while (rs.next()) {
+					employeeRet.setEmp_id(rs.getInt(1));
+					employeeRet.setManager(rs.getInt(2));
+					employeeRet.setDept_id(rs.getString(3));
+					employeeRet.setFirst_name(rs.getString(4));
+					employeeRet.setLast_name(rs.getString(5));
+					employeeRet.setDob(rs.getDate(6).toLocalDate());
+					employeeRet.setGender(rs.getString(7));
+					employeeRet.setCountry(rs.getString(8));
+					employeeRet.setState(rs.getString(9));
+					employeeRet.setCity(rs.getString(10));
+					employeeRet.setAddress(rs.getString(11));
+					employeeRet.setPincode(rs.getString(12));
+					employeeRet.setEmail(rs.getString(13));
+					employeeRet.setMobile_no(rs.getString(14));
+					employeeRet.setDoj(rs.getDate(15).toLocalDate());
+				}
+				for (Employee a : employee_par.getReportingEmployees().values()) {
+					querry.delete(0,querry.length());
+					querry.append("update employees set Manager =").append(id)
+							.append(" where Employee_Id=").append(a.getEmp_id());
+					repo.executeUpdateRep(querry.toString());
+				}
+				repo.SetQuerry("select * from employees where Manager=?");
+				repo.getPsmt().setInt(1, id);
+				ResultSet repEmpRs = repo.executePreparedStatement();
+				while (repEmpRs.next()) {
+					Employee repEmp = new Employee();
+					repEmp.setEmp_id(repEmpRs.getInt(1));
+					employeeRet.setReportingEmployee(repEmp);
+				}
+				repEmpRs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
-		}
+		} else ra = 0;
 		if (ra == 0) {
+			System.out.println("Exiting PUT Employee Dao with no Such Employee in Database");
 			return null;
 		} else
-			return employeeRet;
+			System.out.println("Exiting PUT Employee Dao safely");
+		return employeeRet;
 	}
 
 	public int deleteEmployeeDao(int id) {
-		if(id == 0)
-		{
+		if (id == 0) {
+			System.out.println("Exiting Delete Employee Dao with no id");
 			return 0;
 		}
 
@@ -372,10 +341,14 @@ public class EmployeeReportDao {
 		ra = repo.executeUpdateRep(querry.toString());
 		if (ra != 0) {
 			try {
+				System.out.println("Employee found with id :" + id);
 				repo.SetQuerry("select Employee_Id from employees where Manager=?");
 				repo.getPsmt().setInt(1, id);
 				ResultSet repEmpRs = repo.executePreparedStatement();
 				while (repEmpRs.next()) {
+					System.out.println(
+							"Found atleast One Reporting Employee \nDeleting/Setting Manager of Employee with id :"
+									+ repEmpRs.getInt(1) + " to 0");
 					querry = new StringBuilder("update employees set Manager =0").append(" where Employee_Id=")
 							.append(repEmpRs.getInt(1));
 					repo.executeUpdateRep(querry.toString());
@@ -385,6 +358,7 @@ public class EmployeeReportDao {
 				e.printStackTrace();
 			}
 		}
+		System.out.println("Exiting Delete Employee Dao \nRows Affected :" + ra);
 		return ra;
 	}
 }
