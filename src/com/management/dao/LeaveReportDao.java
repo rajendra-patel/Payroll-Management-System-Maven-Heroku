@@ -131,12 +131,13 @@ public class LeaveReportDao {
 				System.out.println("Exiting POST Leave Dao as no Employee found with Employee id : " + emp_id);
 				return null;
 			} else {
+				rs_id.absolute(1);
 				id = rs_id.getInt(1);
 				sjquerry.add("INSERT INTO leaves (Leave_Employee_Id, Leave_Type, Leave_From, Leave_Till)")
-						.add("VALUES(" + String.valueOf(emp_id) + ",")
-						.add("'" + String.valueOf(leave.getLeave_type()) + "',")
-						.add("'" + java.sql.Date.valueOf(leave.getLeave_from()).toString() + "',")
-						.add("'" + java.sql.Date.valueOf(leave.getLeave_till()).toString() + "')");
+						.add("VALUES(").add(String.valueOf(emp_id)).add(",")
+						.add("'").add(String.valueOf(leave.getLeave_type())).add("',")
+						.add("'").add(java.sql.Date.valueOf(leave.getLeave_from()).toString()).add("',")
+						.add("'").add(java.sql.Date.valueOf(leave.getLeave_till()).toString()).add("')");
 				// querry.add("INSERT INTO leaves(Leave_Employee_Id, Leave_Type, Leave_From,
 				// Leave_Till, Leaves_Total) VALUES(");
 				//
