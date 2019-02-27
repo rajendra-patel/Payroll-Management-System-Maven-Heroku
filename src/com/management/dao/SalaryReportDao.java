@@ -16,7 +16,7 @@ public class SalaryReportDao {
 	StringBuilder querry = null;
 	Repository repo = new Repository(config);
 
-	public HashMap<Integer, NetSalary> getSalaries() {
+	public HashMap<Integer, NetSalary> getSalaries() throws AppException {
 		System.out.println("Within GET Salary Dao");
 		HashMap<Integer, NetSalary> salaries = null;
 		NetSalary salary = null;
@@ -51,15 +51,15 @@ public class SalaryReportDao {
 				salaries.put(salary.getSal_emp_id(), salary);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new AppException(e.getErrorCode(), e.getMessage());
 		}
 		System.out.println("Exiting Salary Dao successfully");
 		config.closeConnection();
 		return salaries;
 	}
 
-	public NetSalary getSalary(int emp_id) {
+	public NetSalary getSalary(int emp_id) throws AppException {
 		querry = new StringBuilder("select * from salary s INNER join employees e on s.Employee_Id=e.Employee_Id where s.Employee_Id=")
 				.append(String.valueOf(emp_id));
 		NetSalary salary = null;
@@ -90,8 +90,8 @@ public class SalaryReportDao {
 				System.out.println("Found record of employee's salary in database");
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new AppException(e.getErrorCode(), e.getMessage());
 		}
 		System.out.println("Exiting Salary Dao successfully");
 		config.closeConnection();
@@ -139,8 +139,8 @@ public class SalaryReportDao {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new AppException(e.getErrorCode(), e.getMessage());
 		}
 			querry.delete(0, querry.length());
 			querry.append("select * from salary s INNER join employees e on s.Employee_Id=e.Employee_Id where s.Employee_Id=")
@@ -169,15 +169,15 @@ public class SalaryReportDao {
 				net_sal.setIns(rs.getDouble(11));
 			}
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				throw new AppException(e.getErrorCode(), e.getMessage());
 			}
 		System.out.println("Exiting POST Salary Dao successfully");
 		config.closeConnection();
 		return net_sal;
 	}
 
-	public NetSalary putSalary(int empId, NetSalary salary) {
+	public NetSalary putSalary(int empId, NetSalary salary) throws AppException {
 		StringBuilder cmd = new StringBuilder("set");
 
 		if (salary.getSal_emp_id() != 0) {
@@ -253,8 +253,8 @@ public class SalaryReportDao {
 				retSalary.setIns(rs.getDouble(11));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			throw new AppException(e.getErrorCode(), e.getMessage());
 		}
 		System.out.println("Exiting PUT Salary Dao successfully");
 		config.closeConnection();

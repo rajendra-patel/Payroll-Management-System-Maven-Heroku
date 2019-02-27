@@ -28,7 +28,7 @@ public class LeaveReportController {
 	public Response findLeaves(@PathParam ("emp-id") int emp_id, @Context UriInfo uriinfol)	throws AppException {
 		System.out.println("Reached Inside GET of Leaves");
 		ArrayList<Leave> ret;
-		ret = (ArrayList<Leave>)lrs.getLeavesService(emp_id).values();
+		ret = new ArrayList<Leave>(lrs.getLeavesService(emp_id).values());
 		return Response.ok(ret).location(uriinfol.getAbsolutePath()).build();
 
 	}
